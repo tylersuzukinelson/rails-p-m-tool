@@ -25,6 +25,14 @@ class TasksController < ApplicationController
   def show
   end
 
+  def update
+    if @task.update permitted_params
+      redirect_to @task
+    else
+      redirect_to edit_task_path, notice: error_message
+    end
+  end
+
   private
 
   def permitted_params
