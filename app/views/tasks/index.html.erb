@@ -1,5 +1,6 @@
 <% @tasks.each do |task| %>
-<%= task.title %><br />
+[<%= link_to "edit", edit_task_path(task) %>] | [<%= link_to "delete", task_path(task), method: :delete %>]<br />
+<%= link_to task.title, task_path(task) %><br />
 <%= task.description %><br />
 <%= task.complete %><br />
 <%= task.created_by %>
