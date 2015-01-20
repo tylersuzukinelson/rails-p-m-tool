@@ -22,6 +22,9 @@ class TasksController < ApplicationController
   def edit
   end
 
+  def show
+  end
+
   private
 
   def permitted_params
