@@ -5,6 +5,6 @@ class Task < ActiveRecord::Base
   private
 
   def default_completion
-    self.completed ||= false
+    self.complete ||= false
   end
 end

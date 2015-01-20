@@ -52,7 +52,7 @@ class TasksController < ApplicationController
   end
 
   def get_task
-    @task = find params[:id]
+    @task = Task.find params[:id]
   end
 
 end
