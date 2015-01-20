@@ -13,6 +13,10 @@ class TasksController < ApplicationController
     end
   end
 
+  def new
+    @task = Task.new
+  end
+
   private
 
   def permitted_params
