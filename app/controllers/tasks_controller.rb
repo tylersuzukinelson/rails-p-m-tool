@@ -33,6 +33,14 @@ class TasksController < ApplicationController
     end
   end
 
+  def destroy
+    if @task.destroy
+      redirect_to tasks_path
+    else
+      redirect_to @task, notice: error_message
+    end
+  end
+
   private
 
   def permitted_params
