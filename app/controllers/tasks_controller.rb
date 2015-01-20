@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
 
+  before_action :get_task, only: [:edit, :show, :update, :destroy]
+
   def index
     @tasks = Task.all
   end
@@ -17,6 +19,9 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def edit
+  end
+
   private
 
   def permitted_params
@@ -25,6 +30,10 @@ class TasksController < ApplicationController
 
   def error_message
     @task.errors.full_messages.join('; ')
+  end
+
+  def get_task
+    @task = find params[:id]
   end
 
 end
