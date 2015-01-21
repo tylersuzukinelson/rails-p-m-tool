@@ -25,6 +25,14 @@ class ProjectsController < ApplicationController
   def show
   end
 
+  def update
+    if @project.update(permitted_params)
+      redirect_to @project
+    else
+      redirect_to edit_project_path(@project), notice: error_messages
+    end
+  end
+
   private
 
   def permitted_params
