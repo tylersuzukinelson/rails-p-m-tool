@@ -37,8 +37,11 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.0)
+    awesome_print (1.6.1)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.3.1.0)
+      sass (~> 3.2)
     builder (3.2.2)
     byebug (3.5.1)
       columnize (~> 0.8)
@@ -56,10 +59,14 @@ GEM
     debugger-linecache (1.2.0)
     erubis (2.7.0)
     execjs (2.2.2)
+    ffi (1.9.6)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     hike (1.2.3)
+    hirb (0.7.2)
     i18n (0.7.0)
+    interactive_editor (0.0.10)
+      spoon (>= 0.0.1)
     jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -119,6 +126,8 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     slop (3.6.0)
+    spoon (0.0.4)
+      ffi
     spring (1.2.0)
     sprockets (2.12.3)
       hike (~> 1.2)
@@ -149,8 +158,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
+  bootstrap-sass
   byebug
   coffee-rails (~> 4.1.0)
+  hirb
+  interactive_editor
   jbuilder (~> 2.0)
   jquery-rails
   pg
