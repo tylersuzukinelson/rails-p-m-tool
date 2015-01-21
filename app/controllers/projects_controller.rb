@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
 
+  before_action :get_project, only: [:show, :edit, :update, :destroy]
+
   def index
     @projects = Project.all
   end
@@ -17,6 +19,9 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def show
+  end
+
   private
 
   def permitted_params
@@ -25,6 +30,10 @@ class ProjectsController < ApplicationController
 
   def error_messages
     @project.errors.full_messages.join('; ')
+  end
+
+  def get_project
+    @project = Project.find params[:id]
   end
 
 end

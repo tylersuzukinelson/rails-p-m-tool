@@ -1,3 +1,5 @@
+<%= "<em>#{flash[:notice]}</em><br /><br />".html_safe if flash[:notice] %>
+
 <%= form_for @project do |f| %>
 <%= f.label :title %>
 <%= f.text_field :title %>
