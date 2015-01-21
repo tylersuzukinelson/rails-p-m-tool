@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>RailsPMTool</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>RailsPMTool</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
-<a href="/">Home</a>
-|
-<a href="/about">About</a>
-|
-<%= link_to "All Tasks", tasks_path %>
-|
-<%= link_to "Create Task", new_task_path %>
-|
-<%= link_to "All Projects", projects_path %>
-|
-<%= link_to "Create Project", new_project_path %>
-<hr>
+    <div class="container">
 
-<%= yield %>
+      <nav class="navbar" style="margin-bottom: 20px">
 
-</body>
+        <ul class="nav nav-pills">
+
+          <li role="presentation"><%= link_to "Home", root_path %></li>
+          <li role="presentation"><%= link_to "About", about_path %></li>
+          <li role="presentation"><%= link_to "All Tasks", tasks_path %></li>
+          <li role="presentation"><%= link_to "Create Task", new_task_path %></li>
+          <li role="presentation"><%= link_to "All Projects", projects_path %></li>
+          <li role="presentation"><%= link_to "Create Project", new_project_path %></li>
+        </ul>
+
+      </nav>
+
+      <%= yield %>
+
+    </div>
+
+  </body>
 </html>
