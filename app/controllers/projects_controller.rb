@@ -19,6 +19,9 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def edit
+  end
+
   def show
   end
 
