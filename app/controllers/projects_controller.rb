@@ -33,6 +33,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    if @project.destroy
+      redirect_to projects_path
+    else
+      redirect_to @project, notice: error_messages
+    end
+  end
+
   private
 
   def permitted_params
