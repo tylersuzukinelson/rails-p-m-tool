@@ -41,6 +41,10 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def search
+    @projects = Project.where('title LIKE ? OR body LIKE ?', "%#{params['search_term']}%", "%#{params['search_term']}%")
+  end
+
   private
 
   def permitted_params
