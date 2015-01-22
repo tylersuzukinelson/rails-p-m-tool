@@ -1,5 +1,7 @@
 class DiscussionsController < ApplicationController
 
+  before_action :get_discussion, only: [:edit, :show, :update, :destroy]
+
   def create
     @discussion = Discussion.new discussion_params
     @discussion.project = Project.find params[:project_id]
@@ -11,17 +13,24 @@ class DiscussionsController < ApplicationController
   end
 
   def edit
-    @discussion = Discussion.find params[:id]
   end
 
   def show
-    @discussion = Discussion.find params[:id]
   end
 
   def update
+    if @discussion.update(discussion_params)
+      redirect_to @discussion
+    else
+      redirect_to projects_path, notice: error_messages
+    end
   end
 
   private
+
+  def get_discussion
+    @discussion = Discussion.find params[:id]
+  end
 
   def discussion_params
     params.require(:discussion).permit(:title, :body)
