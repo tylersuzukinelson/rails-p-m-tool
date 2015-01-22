@@ -6,6 +6,6 @@
 <%= render "discussions/form" %>
 <ul>
 <% @project.discussions.each do |discussion| %>
-  <li><%= link_to discussion.title, [@project, discussion] %><span class="pull-right"><%= link_to "Edit", edit_project_discussion_path(@project, discussion), class: "btn btn-warning btn-sm" %><%= link_to "Delete", [@project, discussion], method: :delete, class: "btn btn-danger btn-sm" %></span></li>
+  <li><%= link_to "Edit", edit_project_discussion_path(@project, discussion), class: "btn btn-warning btn-sm" %><%= link_to "Delete", [@project, discussion], method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Are you sure? This is permanent and cannot be undone."} %><%= link_to discussion.title, [@project, discussion] %></li>
 <% end %>
 </ul>

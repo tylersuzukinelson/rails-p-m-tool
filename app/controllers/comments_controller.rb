@@ -23,6 +23,15 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @discussion = @comment.discussion
+    if @comment.destroy
+      redirect_to @discussion
+    else
+      redirect_to projects_path, notice: error_messages
+    end
+  end
+
   private
 
   def get_comment

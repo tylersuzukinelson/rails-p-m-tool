@@ -26,6 +26,15 @@ class DiscussionsController < ApplicationController
     end
   end
 
+  def destroy
+    @project = @discussion.project
+    if @discussion.destroy
+      redirect_to @project
+    else
+      redirect_to projects_path, notice: error_messages
+    end
+  end
+
   private
 
   def get_discussion
