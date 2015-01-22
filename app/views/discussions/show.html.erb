@@ -8,6 +8,10 @@
 <% end %>
 <hr>
 <% @discussion.comments.each do |comment| %>
+  <span class="pull-right">
+    <%= link_to "Edit", [@discussion, comment], method: :patch, class: "btn btn-warning btn-sm" %>
+    <%= link_to "Delete", [@discussion, comment], method: :delete, class: "btn btn-danger btn-sm" %>
+  </span>
   <%= comment.body %>
   <hr>
 <% end %>

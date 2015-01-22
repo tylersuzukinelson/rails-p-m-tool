@@ -12,6 +12,6 @@
 <% end %>
 <ul>
 <% @project.discussions.each do |discussion| %>
-  <li><%= link_to discussion.title, [@project, discussion] %></li>
+  <li><%= link_to discussion.title, [@project, discussion] %><span class="pull-right"><%= link_to "Edit", [@project, discussion], method: :patch, class: "btn btn-warning btn-sm" %><%= link_to "Delete", [@project, discussion], method: :delete, class: "btn btn-danger btn-sm" %></span></li>
 <% end %>
 </ul>
