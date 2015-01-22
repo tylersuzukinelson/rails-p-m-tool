@@ -31,6 +31,8 @@
 
       </nav>
 
+      <%= "<em>#{flash[:notice]}</em><br /><br />".html_safe if flash[:notice] %>
+
       <%= yield %>
 
     </div>
