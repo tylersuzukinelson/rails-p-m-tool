@@ -10,6 +10,10 @@ class DiscussionsController < ApplicationController
     end
   end
 
+  def show
+    @discussion = Discussion.find params[:id]
+  end
+
   private
 
   def discussion_params

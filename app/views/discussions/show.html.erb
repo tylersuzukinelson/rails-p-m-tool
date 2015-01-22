@@ -1,0 +1,13 @@
+<h3><%= @discussion.title %> <small>in <%= @discussion.project.title %></small></h3>
+<%= @discussion.body %>
+<hr>
+<%= form_for [@discussion, Comment.new] do |f| %>
+  <%= f.label :body %>
+  <%= f.text_area :body %>
+  <%= f.submit %>
+<% end %>
+<hr>
+<% @discussion.comments.each do |comment| %>
+  <%= comment.body %>
+  <hr>
+<% end %>
