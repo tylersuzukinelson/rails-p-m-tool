@@ -1,3 +1,17 @@
 <%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %><%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %><br />
 <%= @project.title %><br />
 <%= @project.body %>
+<hr>
+<h2>Discussions</h2>
+<%= form_for [@project, Discussion.new] do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :body %>
+  <%= f.text_area :body %>
+  <%= f.submit %>
+<% end %>
+<ul>
+<% @project.discussions.each do |discussion| %>
+  <li><%= link_to discussion.title, [@project, discussion] %></li>
+<% end %>
+</ul>
