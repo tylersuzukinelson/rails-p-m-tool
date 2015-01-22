@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   root "home#index"
   get "/about" => "home#about"
-  resources :tasks
   resources :projects do
     resources :discussions
+    resources :tasks
   end
   patch "/search" => "projects#search"
   get "/search" => "projects#search"
