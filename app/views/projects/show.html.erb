@@ -3,15 +3,9 @@
 <%= @project.body %>
 <hr>
 <h2>Discussions</h2>
-<%= form_for [@project, Discussion.new] do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-  <%= f.label :body %>
-  <%= f.text_area :body %>
-  <%= f.submit %>
-<% end %>
+<%= render "discussions/form" %>
 <ul>
 <% @project.discussions.each do |discussion| %>
-  <li><%= link_to discussion.title, [@project, discussion] %><span class="pull-right"><%= link_to "Edit", [@project, discussion], method: :patch, class: "btn btn-warning btn-sm" %><%= link_to "Delete", [@project, discussion], method: :delete, class: "btn btn-danger btn-sm" %></span></li>
+  <li><%= link_to discussion.title, [@project, discussion] %><span class="pull-right"><%= link_to "Edit", edit_project_discussion_path(@project, discussion), class: "btn btn-warning btn-sm" %><%= link_to "Delete", [@project, discussion], method: :delete, class: "btn btn-danger btn-sm" %></span></li>
 <% end %>
 </ul>

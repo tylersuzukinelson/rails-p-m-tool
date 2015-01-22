@@ -1,15 +1,11 @@
 <h3><%= @discussion.title %> <small>in <%= @discussion.project.title %></small></h3>
 <%= @discussion.body %>
 <hr>
-<%= form_for [@discussion, Comment.new] do |f| %>
-  <%= f.label :body %>
-  <%= f.text_area :body %>
-  <%= f.submit %>
-<% end %>
+<%= render "comments/form" %>
 <hr>
 <% @discussion.comments.each do |comment| %>
   <span class="pull-right">
-    <%= link_to "Edit", [@discussion, comment], method: :patch, class: "btn btn-warning btn-sm" %>
+    <%= link_to "Edit", edit_discussion_comment_path(@discussion, comment), class: "btn btn-warning btn-sm" %>
     <%= link_to "Delete", [@discussion, comment], method: :delete, class: "btn btn-danger btn-sm" %>
   </span>
   <%= comment.body %>

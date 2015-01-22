@@ -10,8 +10,15 @@ class DiscussionsController < ApplicationController
     end
   end
 
+  def edit
+    @discussion = Discussion.find params[:id]
+  end
+
   def show
     @discussion = Discussion.find params[:id]
+  end
+
+  def update
   end
 
   private
