@@ -46,7 +46,7 @@ class TasksController < ApplicationController
   private
 
   def permitted_params
-    params.require('task').permit(:title, :description)
+    params.require('task').permit(:title, :description, :complete)
   end
 
   def error_message

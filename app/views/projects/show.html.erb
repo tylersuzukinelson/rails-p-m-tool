@@ -16,7 +16,13 @@
       <h3>Incomplete Tasks</h3>
       <ul>
         <% @project.tasks.where('complete = false').each do |task| %>
-          <li><%= link_to task.title, [@project, task] %></li>
+          <li>
+            <%= form_for [@project, task], method: :patch, html: {style: "display: inline-block"} do |f| %>
+              <input type="hidden" name="task[complete]" value="true" />
+              <%= f.submit "Mark as Completed", class: "btn btn-default" %>
+            <% end %>
+            <%= link_to task.title, [@project, task] %>
+          </li>
         <% end %>
       </ul>
     </div>
@@ -24,7 +30,13 @@
       <h3>Completed Tasks</h3>
       <ul>
         <% @project.tasks.where('complete = true').each do |task| %>
-          <li><%= link_to task.title, [@project, task] %></li>
+          <li>
+              <%= form_for [@project, task], method: :patch, html: {style: "display: inline-block"} do |f| %>
+              <input type="hidden" name="task[complete]" value="false" />
+              <%= f.submit "Mark as Incomplete", class: "btn btn-default" %>
+            <% end %>
+            <%= link_to task.title, [@project, task] %>
+          </li>
         <% end %>
       </ul>
     </div>

@@ -1,4 +1,13 @@
-<%= link_to "edit", edit_project_task_path(@task.project, @task), class: "btn btn-warning" %><%= link_to "delete", project_task_path(@task.project, @task), method: :delete, class: "btn btn-danger" %><br />
+<%= link_to "edit", edit_project_task_path(@task.project, @task), class: "btn btn-warning" %><%= link_to "delete", project_task_path(@task.project, @task), method: :delete, class: "btn btn-danger" %>
+<%= form_for [@task.project, @task], method: :patch, html: {style: "display: inline-block"} do |f| %>
+  <% if @task.complete %>
+    <input type="hidden" name="task[complete]" value="false" />
+    <%= f.submit "Mark as Incomplete", class: "btn btn-default" %>
+  <% else %>
+    <input type="hidden" name="task[complete]" value="true" />
+    <%= f.submit "Mark as Completed", class: "btn btn-default" %>
+  <% end %>
+<% end %><br />
 <%= @task.title %><br />
 <%= @task.description %><br />
 <%= @task.complete %><br />
