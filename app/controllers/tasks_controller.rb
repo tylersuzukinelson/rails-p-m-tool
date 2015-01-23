@@ -8,10 +8,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new permitted_params
+    @task.project = Project.find params[:project_id]
     if @task.save
-      redirect_to @task
+      redirect_to @task.project
     else
-      redirect_to new_task_path, notice: error_message
+      redirect_to projects_path, notice: error_message
     end
   end
 
@@ -27,17 +28,18 @@ class TasksController < ApplicationController
 
   def update
     if @task.update permitted_params
-      redirect_to @task
+      redirect_to @task.project
     else
-      redirect_to edit_task_path, notice: error_message
+      redirect_to projects_path, notice: error_message
     end
   end
 
   def destroy
+    @project = @task.project
     if @task.destroy
-      redirect_to tasks_path
+      redirect_to @project
     else
-      redirect_to @task, notice: error_message
+      redirect_to projects_path, notice: error_message
     end
   end
 
