@@ -1,13 +1,31 @@
-<h3><%= @discussion.title %> <small>in <%= @discussion.project.title %></small></h3>
-<%= @discussion.body %>
+<div class="container" style="margin-left:-15px">
+  <h2>
+    <%= @discussion.title %> <small>in <%= @discussion.project.title %></small>
+    <span class="pull-right">
+      <%= link_to "Edit", edit_project_discussion_path(@discussion.project, @discussion), class: "btn btn-warning" %>
+      <%= link_to "Delete", [@discussion.project, @discussion], method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %>
+    </span>
+  </h2>
+  <%= @discussion.body %>
+</div>
 <hr>
-<%= render "comments/form" %>
-<hr>
-<% @discussion.comments.each do |comment| %>
-  <span class="pull-right">
-    <%= link_to "Edit", edit_discussion_comment_path(@discussion, comment), class: "btn btn-warning btn-sm" %>
-    <%= link_to "Delete", [@discussion, comment], method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Are you sure? This is permanent and cannot be undone."} %>
-  </span>
-  <%= comment.body %>
-  <hr>
-<% end %>
+<div class="container" style="margin-left:-15px">
+  <div class="row">
+    <h3>Comments</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <%= render "comments/form" %>
+    </div>
+    <div class="col-md-8">
+      <% @discussion.comments.each do |comment| %>
+        <span class="pull-right">
+          <%= link_to "Edit", edit_discussion_comment_path(@discussion, comment), class: "btn btn-warning btn-sm" %>
+          <%= link_to "Delete", [@discussion, comment], method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Are you sure? This is permanent and cannot be undone."} %>
+        </span>
+        <%= comment.body %>
+        <hr>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,52 +1,77 @@
-<%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %><%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %><br />
-<%= @project.title %><br />
-<%= @project.body %>
-<div class="container">
-  <%= form_for [@project, Task.new] do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-  <%= f.label :description %>
-  <%= f.text_area :description %>
-  <%= f.submit class: "btn btn-default" %>
-  <% end %>
+<div class="container" style="margin-left:-15px">
+  <h2><%= @project.title %><%# " <small>by #{@project.user}</small>".html_safe if @project.user %><span class="pull-right"><%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %><%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %></span></h2>
+  <%= @project.body %>
 </div>
-<div class="container">
+<hr>
+<div class="container" style="margin-left:-15px">
   <div class="row">
-    <div class="col-md-6">
-      <h3>Incomplete Tasks</h3>
-      <ul>
-        <% @project.tasks.where('complete = false').each do |task| %>
-          <li>
+    <h3>Tasks</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <%= form_for [@project, Task.new] do |f| %>
+        <div class="form-group">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :description %>
+          <%= f.text_area :description, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit class: "btn btn-default" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <h4>Incomplete Tasks</h4>
+      <% @project.tasks.where('complete = false').each do |task| %>
+        <div class="row">
+          <%= link_to task.title, [@project, task] %>
+          <span class="pull-right">
             <%= form_for [@project, task], method: :patch, html: {style: "display: inline-block"} do |f| %>
               <input type="hidden" name="task[complete]" value="true" />
               <%= f.submit "Mark as Completed", class: "btn btn-default" %>
             <% end %>
-            <%= link_to task.title, [@project, task] %>
-          </li>
-        <% end %>
-      </ul>
+          </span>
+        </div>
+      <% end %>
     </div>
-    <div class="col-md-6">
-      <h3>Completed Tasks</h3>
-      <ul>
-        <% @project.tasks.where('complete = true').each do |task| %>
-          <li>
-              <%= form_for [@project, task], method: :patch, html: {style: "display: inline-block"} do |f| %>
+    <div class="col-md-4">
+      <h4>Completed Tasks</h4>
+      <% @project.tasks.where('complete = true').each do |task| %>
+        <div class="row">
+          <%= link_to task.title, [@project, task] %>
+          <span class="pull-right">
+            <%= form_for [@project, task], method: :patch, html: {style: "display: inline-block"} do |f| %>
               <input type="hidden" name="task[complete]" value="false" />
               <%= f.submit "Mark as Incomplete", class: "btn btn-default" %>
             <% end %>
-            <%= link_to task.title, [@project, task] %>
-          </li>
-        <% end %>
-      </ul>
+          </span>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
 <hr>
-<h2>Discussions</h2>
-<%= render "discussions/form" %>
-<ul>
-<% @project.discussions.each do |discussion| %>
-  <li><%= link_to "Edit", edit_project_discussion_path(@project, discussion), class: "btn btn-warning btn-sm" %><%= link_to "Delete", [@project, discussion], method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Are you sure? This is permanent and cannot be undone."} %><%= link_to discussion.title, [@project, discussion] %></li>
-<% end %>
-</ul>
+<div class="container" style="margin-left:-15px">
+  <div class="row">
+    <h3>Discussions</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <%= render "discussions/form" %>
+    </div>
+    <div class="col-md-8">
+      <% @project.discussions.each do |discussion| %>
+        <div class="row">
+          <%= link_to discussion.title, [@project, discussion] %>
+          <span class="pull-right">
+            <%= link_to "Edit", edit_project_discussion_path(@project, discussion), class: "btn btn-warning btn-sm" %>
+            <%= link_to "Delete", [@project, discussion], method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Are you sure? This is permanent and cannot be undone."} %>
+          </div>
+        </li>
+      <% end %>
+    </div>
+  </div>
+</div>

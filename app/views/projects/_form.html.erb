@@ -1,11 +1,15 @@
 <%= "<em>#{flash[:notice]}</em><br /><br />".html_safe if flash[:notice] %>
 
 <%= form_for @project do |f| %>
-<%= f.label :title %>
-<%= f.text_field :title %>
-<br />
-<%= f.label :body %>
-<%= f.text_area :body %>
-<br />
-<%= f.submit class: "btn btn-default" %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class: "btn btn-default" %>
+  </div>
 <% end %>
