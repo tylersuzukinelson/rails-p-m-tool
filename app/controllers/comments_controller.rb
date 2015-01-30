@@ -1,10 +1,12 @@
 class CommentsController < ApplicationController
 
+  before_action :authenticate_user!
   before_action :get_comment, only: [:edit, :update, :destroy]
 
   def create
     @comment = Comment.new comment_params
     @comment.discussion = Discussion.find params[:discussion_id]
+    @comment.user = current_user
     if @comment.save
       redirect_to @comment.discussion
     else

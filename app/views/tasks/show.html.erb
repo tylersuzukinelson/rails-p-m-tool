@@ -1,8 +1,7 @@
 <div class="container" style="margin-left: -15px">
   <div class="row">
     <h2>
-      <%= @task.title %>
-      <%# " <small>by #{@task.user}</small>" if @task.user %>
+      <%= "#{@task.title}  <small>by #{name(@task.user)}</small>".html_safe%>
       <span class="pull-right">
         <%= form_for [@task.project, @task], method: :patch, html: {style: "display: inline-block"} do |f| %>
           <% if @task.complete %>

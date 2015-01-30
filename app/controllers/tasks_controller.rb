@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
 
+  before_action :authenticate_user!
   before_action :get_task, only: [:edit, :show, :update, :destroy]
 
   def index
@@ -9,6 +10,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new permitted_params
     @task.project = Project.find params[:project_id]
+    @task.user = current_user
     if @task.save
       redirect_to @task.project
     else

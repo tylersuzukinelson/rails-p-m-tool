@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
 
+  before_action :authenticate_user!
   before_action :get_project, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -8,6 +9,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new permitted_params
+    @project.user = current_user
     if @project.save
       redirect_to @project
     else

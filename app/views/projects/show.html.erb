@@ -1,5 +1,5 @@
 <div class="container" style="margin-left:-15px">
-  <h2><%= @project.title %><%# " <small>by #{@project.user}</small>".html_safe if @project.user %><span class="pull-right"><%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %><%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %></span></h2>
+  <h2><%= "#{@project.title} <small>by #{name(@project.user)}</small>".html_safe %><span class="pull-right"><%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %><%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %></span></h2>
   <%= @project.body %>
 </div>
 <hr>
