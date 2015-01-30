@@ -7,4 +7,14 @@ class User < ActiveRecord::Base
   has_many :discussions, dependent: :nullify
   has_many :projects, dependent: :nullify
   has_many :tasks, dependent: :nullify
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_projects, through: :favorites, source: :project
+
+  def has_favorited?(project)
+    favorited_projects.include? project
+  end
+
+  def favorite_for(project)
+    favorites.where(project_id: project.id).first
+  end
 end

@@ -1,5 +1,6 @@
 <div class="container" style="margin-left:-15px">
   <h2><%= "#{@project.title} <small>by #{name(@project.user)}</small>".html_safe %><span class="pull-right"><%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %><%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %></span></h2>
+  [<%= user_signed_in? && current_user.has_favorited?(@project) ? link_to('unfavorite', project_favorite_path(@project, current_user.favorite_for(@project)), method: :delete) : link_to('favorite', project_favorites_path(@project), method: :post) %>]
   <%= @project.body %>
 </div>
 <hr>

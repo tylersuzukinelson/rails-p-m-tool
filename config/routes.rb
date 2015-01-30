@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :discussions
     resources :tasks
+    resources :favorites, only: [:create, :destroy]
   end
   patch "/search" => "projects#search"
   get "/search" => "projects#search"
