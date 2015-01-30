@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130061434) do
+ActiveRecord::Schema.define(version: 20150130140553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,17 @@ ActiveRecord::Schema.define(version: 20150130061434) do
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
+  create_table "tags", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tags", ["project_id"], name: "index_tags_on_project_id", using: :btree
+  add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
+
   create_table "tasks", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -99,6 +110,8 @@ ActiveRecord::Schema.define(version: 20150130061434) do
   add_foreign_key "favorites", "projects"
   add_foreign_key "favorites", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "tags", "projects"
+  add_foreign_key "tags", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"
 end

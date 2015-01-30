@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'tags/show'
+
+  get 'tags/create'
+
+  get 'tags/destroy'
+
   devise_for :users, controllers: {registrations: 'registrations'}
   resources :comments
 
@@ -11,12 +17,14 @@ Rails.application.routes.draw do
     resources :discussions
     resources :tasks
     resources :favorites, only: [:create, :destroy]
+    resources :tags, only: [:create, :destroy]
   end
-  patch "/search" => "projects#search"
-  get "/search" => "projects#search"
   resources :discussions, only: [] do
     resources :comments
   end
+  resources :tags, only: [:show]
+  patch "/search" => "projects#search"
+  get "/search" => "projects#search"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

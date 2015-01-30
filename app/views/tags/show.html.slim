@@ -1,0 +1,7 @@
+h3
+  = "Tag: #{@tags.first.title}"
+ul
+  - @tags.each do |tag|
+    li
+      - project = Project.find(tag.project_id)
+      = link_to project.title, project_path(project)
