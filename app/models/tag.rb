@@ -1,8 +1,10 @@
 class Tag < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-  validates :title, presence: true
+  validates :user, presence: true
+  validates :project, presence: true
   validate :no_spaces
+  validates :title, presence: true, uniqueness: { scope: :project }
 
   private
 

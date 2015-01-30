@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :favorited_projects, through: :favorites, source: :project
   has_many :tags, dependent: :destroy
   has_many :tagged_projects, through: :tags, source: :project
+  has_many :members, dependent: :destroy
+  has_many :member_projects, through: :members, source: :project
 
   def has_favorited?(project)
     favorited_projects.include? project
@@ -18,5 +20,9 @@ class User < ActiveRecord::Base
 
   def favorite_for(project)
     favorites.where(project_id: project.id).first
+  end
+
+  def member_for(project)
+    members.where(project_id: project.id).first
   end
 end

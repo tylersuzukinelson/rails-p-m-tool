@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :tasks
     resources :favorites, only: [:create, :destroy]
     resources :tags, only: [:create, :destroy]
+    resources :members, only: [:create, :destroy]
   end
   resources :discussions, only: [] do
     resources :comments
