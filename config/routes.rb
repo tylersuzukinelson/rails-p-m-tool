@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :discussions, only: [] do
     resources :comments
   end
+  resources :favorites, only: [:index]
   resources :tags, only: [:show]
   patch "/search" => "projects#search"
   get "/search" => "projects#search"

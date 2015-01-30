@@ -8,7 +8,7 @@ class Favorite < ActiveRecord::Base
   private
 
   def is_own_project
-    if user.projects.exists?(user_id: user.id)
+    if user.projects.include? project
       errors.add(:project, "is owned by you! You can't favorite your own projects!")
     end
   end

@@ -1,0 +1,10 @@
+h3
+  | Favorites
+ul
+  - if @favorites.empty?
+    li
+      | You have no favorite projects!
+  - else
+    - @favorites.each do |favorite|
+      li
+        = link_to favorite.project.title, favorite.project
