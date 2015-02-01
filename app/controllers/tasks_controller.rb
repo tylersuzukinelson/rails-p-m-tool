@@ -9,12 +9,13 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new permitted_params
-    @task.project = Project.find params[:project_id]
+    @project = Project.find params[:project_id]
+    @task.project = @project
     @task.user = current_user
     if @task.save
-      redirect_to @task.project
+      redirect_to @project
     else
-      redirect_to projects_path, notice: error_message
+      redirect_to @project, notice: error_message
     end
   end
 
@@ -48,7 +49,7 @@ class TasksController < ApplicationController
   private
 
   def permitted_params
-    params.require('task').permit(:title, :description, :complete)
+    params.require('task').permit(:title, :description, :complete, :due_date)
   end
 
   def error_message

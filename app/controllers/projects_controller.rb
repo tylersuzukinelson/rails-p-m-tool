@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
   private
 
   def permitted_params
-    params.require(:project).permit(:title, :body)
+    params.require(:project).permit(:title, :body, :due_date)
   end
 
   def error_messages

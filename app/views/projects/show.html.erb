@@ -1,5 +1,6 @@
 <div class="container" style="margin-left:-15px">
   <h2><%= "#{@project.title} <small>by #{name(@project.user)}</small>".html_safe %><span class="pull-right"><%= form_for [@project, Tag.new], html: { style: "display: inline-block" } do |f| %><%= f.text_field :title %><%= f.submit "Tag", class: "btn btn-default" %><% end %><%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %><%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %></span></h2>
+  <%= "<em>Due #{@project.due_date}</em><br />".html_safe if @project.due_date %>
   <p>
     <% if (@project.user != current_user) && (@project.project_members.include? current_user) %>
       [<%= link_to "leave", project_member_path(@project, current_user.member_for(@project)), method: :delete %>]
@@ -33,6 +34,11 @@
         <div class="form-group">
           <%= f.label :description %>
           <%= f.text_area :description, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :due_date %>
+          <br />
+          <%= f.datetime_select :due_date, class: "form-control" %>
         </div>
         <div class="form-group">
           <%= f.submit class: "btn btn-default" %>

@@ -18,6 +18,7 @@
     </h2>
   </div>
   <div class="row">
+    <%= "<em>Due #{@task.due_date}</em><br />".html_safe if @task.due_date %>
     <%= @task.description %>
   </div>
 </div>
