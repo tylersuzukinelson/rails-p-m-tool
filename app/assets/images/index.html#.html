@@ -1,0 +1,51 @@
+
+<!-- saved from url=(0126)file:///Users/tylersuzukinelson/Dropbox/Project%20Supporting%20Materials/CodeCore%20Bootcamp/assignments/jukebox-4/index.html# -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.2/cyborg/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="file:///Users/tylersuzukinelson/Dropbox/Project%20Supporting%20Materials/CodeCore%20Bootcamp/assignments/jukebox-4/app.css">
+    <script src="./index.html#_files/jquery.min.js"></script>
+    <script src="./index.html#_files/jquery-ui.js"></script>
+    <!--
+      Add a script tag to load jQuery UI javascript on the page,
+      using Google's CDN (google: "jQuery UI google CDN").
+    -->
+    <script src="./index.html#_files/jquery-ui.min.js"></script>
+    <script src="./index.html#_files/player.js"></script>
+    <script src="./index.html#_files/app.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="page-header"><span class="dance">JukeBox<span class="dance"></span></span></h1>
+
+      <div class="row">
+
+        <!-- Playlist -->
+        <section class="playlist col-md-6">
+          <h2>Playlist</h2>
+          <ul id="playlist-list" class="ui-sortable"></ul>
+          <a id="play-button" href="./index.html#_files/index.html#.html" class="btn btn-primary btn-block btn-lg">Play All</a>
+        </section>
+
+        <!-- Library -->
+        <section class="library col-md-6">
+          <h2><input type="text" id="filter-library" class="form-control" placeholder="Filter...">Library</h2>
+          <ul id="library-list" class="ui-sortable"><li class="ui-sortable-handle"><i class="fa fa-bars"></i><i class="fa fa-trash"></i><span class="title">C Major Scale</span><div class="notes" style="display: none;">A B C D E F G</div></li><li class="ui-sortable-handle"><i class="fa fa-bars"></i><i class="fa fa-trash"></i><span class="title">Chromatic Scale</span><div class="notes" style="display: none;">A A# B C C# D D# E F F# G G#</div></li><li class="ui-sortable-handle"><i class="fa fa-bars"></i><i class="fa fa-trash"></i><span class="title">Random Song</span><div class="notes" style="display: none;">A B*2 C D A*4 D E*2 F A B A A*2</div></li><li class="ui-sortable-handle"><i class="fa fa-bars"></i><i class="fa fa-trash"></i><span class="title">Adup Licate</span><div class="notes" style="display: none;">A B*2 C D A*4 D E*2 F A B A A*2</div></li><li class="ui-sortable-handle"><i class="fa fa-bars"></i><i class="fa fa-trash"></i><span class="title">Yankee Doodle</span><div class="notes" style="display: none;">C F*4 C F*4 B C D A*2 B*2 A B*2 C</div></li><li class="ui-sortable-handle"><i class="fa fa-bars"></i><i class="fa fa-trash"></i><span class="title">Descending Notes</span><div class="notes" style="display: none;">G F E D C B A G F E D C B A</div></li></ul>
+        </section>
+
+      </div>
+
+      <!-- Messages -->
+      <div id="message" class="alert alert-info" style="display: none;">
+        <h4>Welcome to Jukebox!</h4>
+        <p>Add some songs to the Playlist to start listening.</p>
+      </div>
+
+    </div>
+  
+
+
+</body></html>

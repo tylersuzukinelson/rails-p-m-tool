@@ -30,7 +30,17 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update permitted_params
+    if !@task.complete && params[:task][:complete]
+      set_completed_by = { completed_by: current_user.id }
+    elsif @task.complete && params[:task][:complete] == 'false'
+      set_completed_by = { completed_by: nil }
+    else
+      set_completed_by = {}
+    end
+    if @task.update permitted_params.merge(set_completed_by)
+      if @task.completed_by && (@task.user_id != @task.completed_by)
+        PmToolerMailer.notify_task_owner(@task)
+      end
       redirect_to @task.project
     else
       redirect_to projects_path, notice: error_message

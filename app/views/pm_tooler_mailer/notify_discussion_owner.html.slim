@@ -1,0 +1,13 @@
+p
+  | Hey #{@user.first_name},
+p
+  | Your discussion titled
+  em
+    = @discussion.title
+  | has a new comment from #{@comment.user.full_name}:
+p
+  = @comment.body
+p
+  | Regards,
+p
+  | Rails PM Tool

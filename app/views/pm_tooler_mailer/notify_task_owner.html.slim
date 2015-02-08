@@ -1,0 +1,11 @@
+p
+  | Hey #{@user.first_name},
+p
+  | Your task titled
+  em
+    = @task.title
+  | was recently completed by #{@completed_by.full_name}.
+p
+  | Regards,
+p
+  | Rails PM Tool

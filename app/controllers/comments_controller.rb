@@ -8,6 +8,9 @@ class CommentsController < ApplicationController
     @comment.discussion = Discussion.find params[:discussion_id]
     @comment.user = current_user
     if @comment.save
+      if @comment.user_id != @comment.discussion.user_id
+        PmToolerMailer.notify_discussion_owner(@comment)
+      end
       redirect_to @comment.discussion
     else
       redirect_to @comment.discussion, notice: error_messages
