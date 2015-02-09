@@ -39,7 +39,7 @@ class TasksController < ApplicationController
     end
     if @task.update permitted_params.merge(set_completed_by)
       if @task.completed_by && (@task.user_id != @task.completed_by)
-        PmToolerMailer.notify_task_owner(@task)
+        PmToolerMailer.notify_task_owner(@task).deliver
       end
       redirect_to @task.project
     else

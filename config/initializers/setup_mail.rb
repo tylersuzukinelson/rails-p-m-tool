@@ -1,5 +1,5 @@
 ActionMailer::Base.smtp_settings = {
-  address: 'smtp.gmail.com',
+  address: 'smtp.mandrillapp.com',
   port: '587',
   enable_starttls_auto: true,
   user_name: ENV['email_username'],

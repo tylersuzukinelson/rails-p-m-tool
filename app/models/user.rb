@@ -25,4 +25,12 @@ class User < ActiveRecord::Base
   def member_for(project)
     members.where(project_id: project.id).first
   end
+
+  def full_name
+    if first_name || last_name
+      "#{first_name} #{last_name}"
+    else
+      email
+    end
+  end
 end

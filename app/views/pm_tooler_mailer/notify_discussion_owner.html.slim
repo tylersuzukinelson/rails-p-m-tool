@@ -1,11 +1,11 @@
 p
   | Hey #{@user.first_name},
 p
-  | Your discussion titled
+  | Your discussion titled 
   em
     = @discussion.title
-  | has a new comment from #{@comment.user.full_name}:
-p
+  |  has a new comment from #{@comment.user.full_name}:
+p(style="margin-left: 25px")
   = @comment.body
 p
   | Regards,
