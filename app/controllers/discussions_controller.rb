@@ -8,6 +8,9 @@ class DiscussionsController < ApplicationController
     @discussion.project = Project.find params[:project_id]
     @discussion.user = current_user
     if @discussion.save
+      unless Delayed::Job.exists?(["handler LIKE ?", "%method_name: :daily_summary\nargs:\n- #{@discussion.project.id}\n%"])
+        PmToolerMailer.delay(run_at: Time.now.midnight + 1.day).daily_summary(@discussion.project.id)
+      end
       redirect_to @discussion.project
     else
       redirect_to @discussion.project, notice: error_messages

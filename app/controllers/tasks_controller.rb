@@ -13,6 +13,9 @@ class TasksController < ApplicationController
     @task.project = @project
     @task.user = current_user
     if @task.save
+      unless Delayed::Job.exists?(["handler LIKE ?", "%method_name: :daily_summary\nargs:\n- #{@project.id}\n%"])
+        PmToolerMailer.delay(run_at: Time.now.midnight + 1.day).daily_summary(@project.id)
+      end
       redirect_to @project
     else
       redirect_to @project, notice: error_message
@@ -39,7 +42,7 @@ class TasksController < ApplicationController
     end
     if @task.update permitted_params.merge(set_completed_by)
       if @task.completed_by && (@task.user_id != @task.completed_by)
-        PmToolerMailer.notify_task_owner(@task).deliver
+        PmToolerMailer.notify_task_owner(@task).deliver_later
       end
       redirect_to @task.project
     else

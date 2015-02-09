@@ -36,6 +36,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'thin'
 gem 'devise'
 gem 'slim-rails'
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 
 group :development do
   gem 'interactive_editor'

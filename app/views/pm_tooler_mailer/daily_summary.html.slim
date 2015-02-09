@@ -1,0 +1,27 @@
+p
+  | Hey #{@user.first_name},
+p
+  | Your project titled 
+  em
+    = @project.title
+  |  has some new contributions:
+- if @tasks
+  p(style="margin-left: 25px")
+    strong
+      | New Tasks
+    br
+    - @tasks.each do |task|
+      | - #{task.title}
+      br
+- if @discussions
+  p(style="margin-left: 25px")
+    strong
+      | New Discussions
+    br
+    - @discussions.each do |discussion|
+      | - #{discussion.title}
+      br
+p
+  | Regards,
+p
+  | Rails PM Tool

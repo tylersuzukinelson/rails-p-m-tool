@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     if @comment.save
       if @comment.user_id != @comment.discussion.user_id
-        PmToolerMailer.notify_discussion_owner(@comment).deliver
+        PmToolerMailer.notify_discussion_owner(@comment).deliver_later
       end
       redirect_to @comment.discussion
     else

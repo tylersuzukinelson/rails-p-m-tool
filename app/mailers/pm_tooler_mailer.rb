@@ -14,4 +14,12 @@ class PmToolerMailer < ApplicationMailer
     mail to: @user.email, subject: "Someone completed one of your tasks!"
   end
 
+  def daily_summary(project_id)
+    @project = Project.find project_id
+    @user = @project.user
+    @tasks = @project.tasks.where("created_at > ?", Time.now - 1.day)
+    @discussions = @project.discussions.where("created_at > ?", Time.now - 1.day)
+    mail to: @user.email, subject: "Your project has been updated!"
+  end
+
 end

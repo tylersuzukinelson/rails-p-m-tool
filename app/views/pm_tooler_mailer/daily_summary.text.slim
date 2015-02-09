@@ -1,0 +1,24 @@
+| Hey #{@user.first_name},
+| 
+| Your project titled "#{@project.title}" has some new contributions:
+| 
+- if @tasks
+  | 
+  | =====
+  | New Tasks
+  | ===
+  - @tasks.each do |task|
+    | - #{task.title}
+  | =====
+- if @discussions
+  | 
+  | =====
+  | New Discussions
+  | ===
+  - @discussions.each do |discussion|
+    | - #{discussion.title}
+  | =====
+|
+| Regards,
+|
+| Rails PM Tool
