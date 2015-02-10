@@ -5,7 +5,7 @@ p
   em
     = @project.title
   |  has some new contributions:
-- if @tasks
+- if !@tasks.empty?
   p(style="margin-left: 25px")
     strong
       | New Tasks
@@ -13,7 +13,7 @@ p
     - @tasks.each do |task|
       | - #{task.title}
       br
-- if @discussions
+- if !@discussions.empty?
   p(style="margin-left: 25px")
     strong
       | New Discussions

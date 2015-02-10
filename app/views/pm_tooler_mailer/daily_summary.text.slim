@@ -2,7 +2,7 @@
 | 
 | Your project titled "#{@project.title}" has some new contributions:
 | 
-- if @tasks
+- if !@tasks.empty?
   | 
   | =====
   | New Tasks
@@ -10,7 +10,7 @@
   - @tasks.each do |task|
     | - #{task.title}
   | =====
-- if @discussions
+- if !@discussions.empty?
   | 
   | =====
   | New Discussions
