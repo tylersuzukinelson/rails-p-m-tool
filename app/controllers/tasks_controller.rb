@@ -16,9 +16,15 @@ class TasksController < ApplicationController
       unless Delayed::Job.exists?(["handler LIKE ?", "%method_name: :daily_summary\nargs:\n- #{@project.id}\n%"])
         PmToolerMailer.delay(run_at: Time.now.midnight + 1.day).daily_summary(@project.id)
       end
-      redirect_to @project
+      respond_to do |format|
+        format.html { redirect_to @project }
+        format.js { render }
+      end
     else
-      redirect_to @project, notice: error_message
+      respond_to do |format|
+        format.html { redirect_to @project, notice: error_message }
+        format.js { render }
+      end
     end
   end
 
@@ -44,18 +50,30 @@ class TasksController < ApplicationController
       if @task.completed_by && (@task.user_id != @task.completed_by)
         PmToolerMailer.notify_task_owner(@task).deliver_later
       end
-      redirect_to @task.project
+      respond_to do |format|
+        format.html { redirect_to @task.project }
+        format.js { render }
+      end
     else
-      redirect_to projects_path, notice: error_message
+      respond_to do |format|
+        format.html { redirect_to projects_path, notice: error_message }
+        format.js { render }
+      end
     end
   end
 
   def destroy
     @project = @task.project
     if @task.destroy
-      redirect_to @project
+      respond_to do |format|
+        format.html { redirect_to @project }
+        format.js { render }
+      end
     else
-      redirect_to projects_path, notice: error_message
+      respond_to do |format|
+        format.html { redirect_to projects_path, notice: error_message }
+        format.js { render }
+      end
     end
   end
 

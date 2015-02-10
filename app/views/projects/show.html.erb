@@ -1,5 +1,15 @@
 <div class="container" style="margin-left:-15px">
-  <h2><%= "#{@project.title} <small>by #{name(@project.user)}</small>".html_safe %><span class="pull-right"><%= form_for [@project, Tag.new], html: { style: "display: inline-block" } do |f| %><%= f.text_field :title %><%= f.submit "Tag", class: "btn btn-default" %><% end %><%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %><%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %></span></h2>
+  <h2>
+    <%= "#{@project.title} <small>by #{name(@project.user)}</small>".html_safe %>
+    <span class="pull-right">
+      <%= form_for [@project, Tag.new], html: { style: "display: inline-block" } do |f| %>
+        <%= f.text_field :title %>
+        <%= f.submit "Tag", class: "btn btn-default" %>
+      <% end %>
+      <%= link_to "edit", edit_project_path(@project), class: "btn btn-warning" %>
+      <%= link_to "delete", project_path(@project), method: :delete, data: {confirm: "Are you sure? This is permanent and cannot be undone."}, class: "btn btn-danger" %>
+    </span>
+  </h2>
   <%= "<em>Due #{@project.due_date}</em><br />".html_safe if @project.due_date %>
   <p>
     <% if (@project.user != current_user) && (@project.project_members.include? current_user) %>
@@ -25,52 +35,19 @@
     <h3>Tasks</h3>
   </div>
   <div class="row">
-    <div class="col-md-4">
-      <%= form_for [@project, Task.new] do |f| %>
-        <div class="form-group">
-          <%= f.label :title %>
-          <%= f.text_field :title, class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :description %>
-          <%= f.text_area :description, class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :due_date %>
-          <br />
-          <%= f.datetime_select :due_date, class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= f.submit class: "btn btn-default" %>
-        </div>
-      <% end %>
+    <div id="task_form" class="col-md-4">
+      <%= render partial: "/tasks/form", locals: { project: @project, task: Task.new } %>
     </div>
-    <div class="col-md-4">
+    <div id="incomplete_tasks" class="col-md-4">
       <h4>Incomplete Tasks</h4>
       <% @project.tasks.where('complete = false').each do |task| %>
-        <div class="row">
-          <%= link_to task.title, [@project, task] %>
-          <span class="pull-right">
-            <%= form_for [@project, task], method: :patch, html: {style: "display: inline-block"} do |f| %>
-              <input type="hidden" name="task[complete]" value="true" />
-              <%= f.submit "Mark as Completed", class: "btn btn-default" %>
-            <% end %>
-          </span>
-        </div>
+        <%= render partial: "/tasks/task_complete", locals: { project: @project, task: task } %>
       <% end %>
     </div>
-    <div class="col-md-4">
+    <div id="complete_tasks" class="col-md-4">
       <h4>Completed Tasks</h4>
       <% @project.tasks.where('complete = true').each do |task| %>
-        <div class="row">
-          <%= link_to task.title, [@project, task] %>
-          <span class="pull-right">
-            <%= form_for [@project, task], method: :patch, html: {style: "display: inline-block"} do |f| %>
-              <input type="hidden" name="task[complete]" value="false" />
-              <%= f.submit "Mark as Incomplete", class: "btn btn-default" %>
-            <% end %>
-          </span>
-        </div>
+        <%= render partial: "/tasks/task_complete", locals: { project: @project, task: task } %>
       <% end %>
     </div>
   </div>
