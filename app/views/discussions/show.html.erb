@@ -14,17 +14,12 @@
     <h3>Comments</h3>
   </div>
   <div class="row">
-    <div class="col-md-4">
-      <%= render "comments/form" %>
+    <div id="comment_form" class="col-md-4">
+      <%= render partial: "/comments/form", locals: { discussion: @discussion, comment: Comment.new } %>
     </div>
-    <div class="col-md-8">
+    <div id="comment_list" class="col-md-8">
       <% @discussion.comments.each do |comment| %>
-        <span class="pull-right">
-          <%= link_to "Edit", edit_discussion_comment_path(@discussion, comment), class: "btn btn-warning btn-sm" %>
-          <%= link_to "Delete", [@discussion, comment], method: :delete, class: "btn btn-danger btn-sm", data: {confirm: "Are you sure? This is permanent and cannot be undone."} %>
-        </span>
-        <%= "<em>#{name(comment.user)} says:</em><br />".html_safe %>
-        <%= comment.body %>
+        <%= render partial: "/comments/comment", locals: { discussion: @discussion, comment: comment } %>
         <hr>
       <% end %>
     </div>

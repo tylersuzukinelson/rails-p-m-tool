@@ -11,9 +11,15 @@ class CommentsController < ApplicationController
       if @comment.user_id != @comment.discussion.user_id
         PmToolerMailer.notify_discussion_owner(@comment).deliver_later
       end
-      redirect_to @comment.discussion
+      respond_to do |format|
+        format.html { redirect_to @comment.discussion }
+        format.js { render }
+      end
     else
-      redirect_to @comment.discussion, notice: error_messages
+      respond_to do |format|
+        format.html { redirect_to @comment.discussion, notice: error_messages }
+        format.js { render }
+      end
     end
   end
 
