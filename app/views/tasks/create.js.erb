@@ -1,3 +1,13 @@
-<%# TODO: Render flash notice box in layout %>
-$('#task_form').html("<%= j render partial: "/tasks/form", locals: {project: @project, task: Task.new} %>");
-$('#incomplete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+$('#flash').html("");
+<% if !flash.empty? %>
+  <% flash.each do |k,v| %>
+    <% if (k == "alert") %>
+      $('#flash').append("<div class=\"alert alert-danger\" role=\"alert\"><%= v %></div>");
+    <% else %>
+      $('#flash').append("<div class=\"alert alert-warning\" role=\"alert\"><%= v %></div>");
+    <% end %>
+  <% end %>
+<% else %>
+  $('#task_form').html("<%= j render partial: "/tasks/form", locals: {project: @project, task: Task.new} %>");
+  $('#incomplete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+<% end %>

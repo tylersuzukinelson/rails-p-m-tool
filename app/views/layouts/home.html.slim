@@ -3,4 +3,7 @@ html
     title
       | Welcome to the Rails Project Management Tool
   body
-    | Welcome to the Rails Project Management Tool! Click #{ link_to "here", new_user_session_path } to sign in or register.
+    - if user_signed_in?
+      | Welcome to the Rails Project Management Tool! Click #{ link_to "here", projects_path } to get started.
+    - else
+      | Welcome to the Rails Project Management Tool! Click #{ link_to "here", new_user_session_path } to sign in or register.

@@ -16,13 +16,15 @@ class TasksController < ApplicationController
       unless Delayed::Job.exists?(["handler LIKE ?", "%method_name: :daily_summary\nargs:\n- #{@project.id}\n%"])
         PmToolerMailer.delay(run_at: Time.now.midnight + 1.day).daily_summary(@project.id)
       end
+      @task.reload()
       respond_to do |format|
         format.html { redirect_to @project }
         format.js { render }
       end
     else
       respond_to do |format|
-        format.html { redirect_to @project, notice: error_message }
+        flash[:alert] = error_message
+        format.html { redirect_to @project }
         format.js { render }
       end
     end
@@ -65,8 +67,9 @@ class TasksController < ApplicationController
         format.js { render }
       end
     else
+      flash[:alert] = error_message
       respond_to do |format|
-        format.html { redirect_to projects_path, notice: error_message }
+        format.html { redirect_to projects_path }
         format.js { render }
       end
     end
@@ -80,8 +83,9 @@ class TasksController < ApplicationController
         format.js { render }
       end
     else
+      flash[:alert] = error_message
       respond_to do |format|
-        format.html { redirect_to projects_path, notice: error_message }
+        format.html { redirect_to projects_path }
         format.js { render }
       end
     end

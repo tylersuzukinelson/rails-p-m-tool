@@ -1,17 +1,27 @@
-<%# TODO: Render flash notice box in layout %>
-<% if URI(request.referrer).path == project_path(@project) %>
-  <% if @flag_changed_status %>
-    $('#<%= dom_id(@task) %>').remove();
-    <% if @task.complete %>
-      $('#complete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+$('#flash').html("");
+<% if !flash.empty? %>
+  <% flash.each do |k,v| %>
+    <% if (k == "alert") %>
+      $('#flash').append("<div class=\"alert alert-danger\" role=\"alert\"><%= v %></div>");
     <% else %>
-      $('#incomplete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+      $('#flash').append("<div class=\"alert alert-warning\" role=\"alert\"><%= v %></div>");
     <% end %>
-  <% else %>
-    $('#<%= dom_id(@task) %>').replaceWith("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
   <% end %>
-<% elsif URI(request.referrer).path == project_task_path(@project, @task) %>
-  $('#task_title').text("<%= @task.title %>");
-  $('#complete_button').html("<%= j render partial: "complete_button", locals: { project: @project, task: @task } %>");
-  $('#task_content').html("<%= "<em>Due #{@task.due_date}</em><br />".html_safe if @task.due_date %><%= @task.description %>");
+<% else %>
+  <% if URI(request.referrer).path == project_path(@project) %>
+    <% if @flag_changed_status %>
+      $('#<%= dom_id(@task) %>').remove();
+      <% if @task.complete %>
+        $('#complete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+      <% else %>
+        $('#incomplete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+      <% end %>
+    <% else %>
+      $('#<%= dom_id(@task) %>').replaceWith("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+    <% end %>
+  <% elsif URI(request.referrer).path == project_task_path(@project, @task) %>
+    $('#task_title').text("<%= @task.title %>");
+    $('#complete_button').html("<%= j render partial: "complete_button", locals: { project: @project, task: @task } %>");
+    $('#task_content').html("<%= "<em>Due #{@task.due_date}</em><br />".html_safe if @task.due_date %><%= @task.description %>");
+  <% end %>
 <% end %>

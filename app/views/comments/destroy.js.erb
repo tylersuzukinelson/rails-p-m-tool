@@ -1,1 +1,12 @@
-$('#<%= dom_id(@comment) %>').fadeOut().delay(3000).remove();
+$('#flash').html("");
+<% if !flash.empty? %>
+  <% flash.each do |k,v| %>
+    <% if (k == "alert") %>
+      $('#flash').append("<div class=\"alert alert-danger\" role=\"alert\"><%= v %></div>");
+    <% else %>
+      $('#flash').append("<div class=\"alert alert-warning\" role=\"alert\"><%= v %></div>");
+    <% end %>
+  <% end %>
+<% else %>
+  $('#<%= dom_id(@comment) %>').fadeOut().delay(3000).remove();
+<% end %>

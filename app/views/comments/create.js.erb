@@ -1,2 +1,13 @@
-$('#comment_form').html("<%= j render partial: "/comments/form", locals: { discussion: @comment.discussion, comment: Comment.new } %>");
-$('#comment_list').append("<%= j render partial: "/comments/comment", locals: { discussion: @comment.discussion, comment: @comment } %>");
+$('#flash').html("");
+<% if !flash.empty? %>
+  <% flash.each do |k,v| %>
+    <% if (k == "alert") %>
+      $('#flash').append("<div class=\"alert alert-danger\" role=\"alert\"><%= v %></div>");
+    <% else %>
+      $('#flash').append("<div class=\"alert alert-warning\" role=\"alert\"><%= v %></div>");
+    <% end %>
+  <% end %>
+<% else %>
+  $('#comment_form').html("<%= j render partial: "/comments/form", locals: { discussion: @comment.discussion, comment: Comment.new } %>");
+  $('#comment_list').append("<%= j render partial: "/comments/comment", locals: { discussion: @comment.discussion, comment: @comment } %>");
+<% end %>
