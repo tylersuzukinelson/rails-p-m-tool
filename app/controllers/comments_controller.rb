@@ -24,13 +24,23 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    respond_to do |format|
+      format.html { render }
+      format.js { render }
+    end
   end
 
   def update
     if @comment.update(comment_params)
-      redirect_to @comment.discussion
+      respond_to do |format|
+        format.html { redirect_to @comment.discussion }
+        format.js { render }
+      end
     else
-      redirect_to projects_path, notice: error_messages
+      respond_to do |format|
+        format.html { redirect_to projects_path, notice: error_messages }
+        format.js { render }
+      end
     end
   end
 

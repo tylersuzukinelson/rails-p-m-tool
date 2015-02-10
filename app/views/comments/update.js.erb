@@ -1,0 +1,2 @@
+$('#comment_form').html("<%= j render partial: "/comments/form", locals: { discussion: @comment.discussion, comment: Comment.new } %>");
+$('#<%= dom_id(@comment) %>').html("<%= j render partial: "/comments/comment", locals: { discussion: @comment.discussion, comment: @comment } %>");

@@ -1,4 +1,4 @@
-<%= form_for [discussion, (comment || Comment.new)], remote: true do |f| %>
+<%= form_for [discussion, comment], remote: true do |f| %>
   <div class="form-group">
     <%= f.label :body %>
     <%= f.text_area :body, class: "form-control" %>
