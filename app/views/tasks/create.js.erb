@@ -1,2 +1,3 @@
+<%# TODO: Render flash notice box in layout %>
 $('#task_form').html("<%= j render partial: "/tasks/form", locals: {project: @project, task: Task.new} %>");
 $('#incomplete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");

@@ -1,0 +1,11 @@
+<%# TODO: Render flash notice box in layout %>
+<% if @flag_changed_status %>
+  $('#<%= dom_id(@task) %>').remove();
+  <% if @task.complete %>
+    $('#complete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+  <% else %>
+    $('#incomplete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+  <% end %>
+<% else %>
+  $('#<%= dom_id(@task) %>').replaceWith("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+<% end %>

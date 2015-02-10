@@ -40,12 +40,16 @@ class TasksController < ApplicationController
 
   def update
     if !@task.complete && params[:task][:complete]
+      @flag_changed_status = true
       set_completed_by = { completed_by: current_user.id }
     elsif @task.complete && params[:task][:complete] == 'false'
+      @flag_changed_status = true
       set_completed_by = { completed_by: nil }
     else
+      @flag_changed_status = false
       set_completed_by = {}
     end
+    @project = @task.project
     if @task.update permitted_params.merge(set_completed_by)
       if @task.completed_by && (@task.user_id != @task.completed_by)
         PmToolerMailer.notify_task_owner(@task).deliver_later
