@@ -20,7 +20,6 @@
     <div id="comment_list" class="col-md-8">
       <% @discussion.comments.each do |comment| %>
         <%= render partial: "/comments/comment", locals: { discussion: @discussion, comment: comment } %>
-        <hr>
       <% end %>
     </div>
   </div>

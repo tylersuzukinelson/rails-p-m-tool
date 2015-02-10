@@ -37,9 +37,15 @@ class CommentsController < ApplicationController
   def destroy
     @discussion = @comment.discussion
     if @comment.destroy
-      redirect_to @discussion
+      respond_to do |format|
+        format.html { redirect_to @discussion }
+        format.js { render }
+      end
     else
-      redirect_to projects_path, notice: error_messages
+      respond_to do |format|
+        format.html { redirect_to projects_path, notice: error_messages }
+        format.js { render }
+      end
     end
   end
 
