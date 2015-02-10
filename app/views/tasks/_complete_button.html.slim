@@ -1,0 +1,7 @@
+= form_for [project, task], method: :patch, html: {style: "display: inline-block"}, remote: true do |f|
+  - if task.complete
+    input type="hidden" name="task[complete]" value="false"
+    = f.submit "Mark as Incomplete", class: "btn btn-default"
+  - else
+    input type="hidden" name="task[complete]" value="true"
+    = f.submit "Mark as Completed", class: "btn btn-default"

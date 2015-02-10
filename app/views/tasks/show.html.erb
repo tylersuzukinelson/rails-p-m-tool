@@ -1,23 +1,17 @@
 <div class="container" style="margin-left: -15px">
   <div class="row">
     <h2>
-      <%= "#{@task.title}  <small>by #{name(@task.user)}</small>".html_safe%>
+      <%= "<span id=\"task_title\">#{@task.title}</span>  <small>by #{name(@task.user)}</small>".html_safe%>
       <span class="pull-right">
-        <%= form_for [@task.project, @task], method: :patch, html: {style: "display: inline-block"} do |f| %>
-          <% if @task.complete %>
-            <input type="hidden" name="task[complete]" value="false" />
-            <%= f.submit "Mark as Incomplete", class: "btn btn-default" %>
-          <% else %>
-            <input type="hidden" name="task[complete]" value="true" />
-            <%= f.submit "Mark as Completed", class: "btn btn-default" %>
-          <% end %>
-        <% end %>
-        <%= link_to "Edit", edit_project_task_path(@task.project, @task), class: "btn btn-warning" %>
+        <div id="complete_button" style="display: inline-block">
+          <%= render partial: "complete_button", locals: { project: @project, task: @task } %>
+        </div>
+        <%= link_to "Edit", edit_project_task_path(@task.project, @task), class: "btn btn-warning", remote: true %>
         <%= link_to "Delete", [@task.project, @task], method: :delete, class: "btn btn-danger" %>
       </span>
     </h2>
   </div>
-  <div class="row">
+  <div id="task_content" class="row">
     <%= "<em>Due #{@task.due_date}</em><br />".html_safe if @task.due_date %>
     <%= @task.description %>
   </div>

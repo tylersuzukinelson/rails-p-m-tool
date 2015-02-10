@@ -33,9 +33,15 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @project = @task.project
+    respond_to do |format|
+      format.html { render }
+      format.js { render }
+    end
   end
 
   def show
+    @project = @task.project
   end
 
   def update

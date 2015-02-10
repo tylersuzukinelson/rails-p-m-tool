@@ -1,11 +1,17 @@
 <%# TODO: Render flash notice box in layout %>
-<% if @flag_changed_status %>
-  $('#<%= dom_id(@task) %>').remove();
-  <% if @task.complete %>
-    $('#complete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+<% if URI(request.referrer).path == project_path(@project) %>
+  <% if @flag_changed_status %>
+    $('#<%= dom_id(@task) %>').remove();
+    <% if @task.complete %>
+      $('#complete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+    <% else %>
+      $('#incomplete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+    <% end %>
   <% else %>
-    $('#incomplete_tasks').append("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+    $('#<%= dom_id(@task) %>').replaceWith("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
   <% end %>
-<% else %>
-  $('#<%= dom_id(@task) %>').replaceWith("<%= j render partial: "/tasks/task_complete", locals: {project: @project, task: @task} %>");
+<% elsif URI(request.referrer).path == project_task_path(@project, @task) %>
+  $('#task_title').text("<%= @task.title %>");
+  $('#complete_button').html("<%= j render partial: "complete_button", locals: { project: @project, task: @task } %>");
+  $('#task_content').html("<%= "<em>Due #{@task.due_date}</em><br />".html_safe if @task.due_date %><%= @task.description %>");
 <% end %>
