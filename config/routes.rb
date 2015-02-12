@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :discussions
     resources :tasks
     resources :favorites, only: [:create, :destroy]
-    resources :tags, only: [:create, :destroy]
+    resources :tags, only: [:show, :create, :destroy]
     resources :members, only: [:create, :destroy]
   end
   resources :discussions, only: [] do

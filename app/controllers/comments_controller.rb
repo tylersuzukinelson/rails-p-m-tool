@@ -12,12 +12,14 @@ class CommentsController < ApplicationController
         PmToolerMailer.notify_discussion_owner(@comment).deliver_later
       end
       respond_to do |format|
+        flash[:notice] = "Comment added!"
         format.html { redirect_to @comment.discussion }
         format.js { render }
       end
     else
       respond_to do |format|
-        format.html { redirect_to @comment.discussion, notice: error_messages }
+        flash[:alert] = error_messages
+        format.html { redirect_to @comment.discussion }
         format.js { render }
       end
     end
@@ -33,12 +35,14 @@ class CommentsController < ApplicationController
   def update
     if @comment.update(comment_params)
       respond_to do |format|
+        flash[:notice] = "Comment updated!"
         format.html { redirect_to @comment.discussion }
         format.js { render }
       end
     else
       respond_to do |format|
-        format.html { redirect_to projects_path, notice: error_messages }
+        flash[:alert] = error_messages
+        format.html { redirect_to projects_path }
         format.js { render }
       end
     end
@@ -48,12 +52,14 @@ class CommentsController < ApplicationController
     @discussion = @comment.discussion
     if @comment.destroy
       respond_to do |format|
+        flash[:notice] = "Comment deleted!"
         format.html { redirect_to @discussion }
         format.js { render }
       end
     else
       respond_to do |format|
-        format.html { redirect_to projects_path, notice: error_messages }
+        flash[:alert] = error_messages
+        format.html { redirect_to projects_path }
         format.js { render }
       end
     end

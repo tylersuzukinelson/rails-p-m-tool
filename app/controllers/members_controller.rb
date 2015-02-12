@@ -4,9 +4,11 @@ class MembersController < ApplicationController
     @member = @project.members.new
     @member.user = current_user
     if @member.save
+      flash[:notice] = "Membership added!"
       redirect_to @project
     else
-      redirect_to @project, notice: error_messages
+      flash[:alert] = error_messages
+      redirect_to @project
     end
   end
 
@@ -14,9 +16,11 @@ class MembersController < ApplicationController
     @member = Member.find params[:id]
     @project = Project.find params[:project_id]
     if @member.destroy
+      flash[:notice] = "Removed membership!"
       redirect_to @project
     else
-      redirect_to @project, notice: error_messages
+      flash[:alert] = error_messages
+      redirect_to @project
     end
   end
 

@@ -9,9 +9,11 @@ class TagsController < ApplicationController
     @tag = @project.tags.new permitted_params
     @tag.user = current_user
     if @tag.save
+      flash[:notice] = "Tag created!"
       redirect_to @project
     else
-      redirect_to @project, notice: error_messages
+      flash[:alert] = error_messages
+      redirect_to @project
     end
   end
 
@@ -19,9 +21,11 @@ class TagsController < ApplicationController
     @project = Project.find params[:project_id]
     @tag = Tag.find params[:id]
     if @tag.destroy
+      flash[:notice] = "Tag deleted!"
       redirect_to @project
     else
-      redirect_to @project, notice: error_messages
+      flash[:alert] = error_messages
+      redirect_to @project
     end
   end
 

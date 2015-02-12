@@ -13,17 +13,19 @@ class TasksController < ApplicationController
     @task.project = @project
     @task.user = current_user
     if @task.save
+      # Check to see if the daily_summary has already been scheduled. If not, schedule it.
       unless Delayed::Job.exists?(["handler LIKE ?", "%method_name: :daily_summary\nargs:\n- #{@project.id}\n%"])
         PmToolerMailer.delay(run_at: Time.now.midnight + 1.day).daily_summary(@project.id)
       end
       @task.reload()
       respond_to do |format|
+        flash[:notice] = "Task created!"
         format.html { redirect_to @project }
         format.js { render }
       end
     else
       respond_to do |format|
-        flash[:alert] = error_message
+        flash[:alert] = error_messages
         format.html { redirect_to @project }
         format.js { render }
       end
@@ -63,12 +65,13 @@ class TasksController < ApplicationController
         PmToolerMailer.notify_task_owner(@task).deliver_later
       end
       respond_to do |format|
+        flash[:notice] = "Task updated!"
         format.html { redirect_to @task.project }
         format.js { render }
       end
     else
-      flash[:alert] = error_message
       respond_to do |format|
+        flash[:alert] = error_messages
         format.html { redirect_to projects_path }
         format.js { render }
       end
@@ -79,12 +82,13 @@ class TasksController < ApplicationController
     @project = @task.project
     if @task.destroy
       respond_to do |format|
+        flash[:notice] = "Task deleted!"
         format.html { redirect_to @project }
         format.js { render }
       end
     else
-      flash[:alert] = error_message
       respond_to do |format|
+        flash[:alert] = error_messages
         format.html { redirect_to projects_path }
         format.js { render }
       end
